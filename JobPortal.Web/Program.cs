@@ -1,5 +1,6 @@
 using JobPortal.Application.Interfaces;
 using JobPortal.Application.Services;
+using JobPortal.Infrastructure;
 using JobPortal.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<Context>();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IJobService, JobService>();
