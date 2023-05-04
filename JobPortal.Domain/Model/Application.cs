@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Domain.Model
 {
-    internal class Applicant
+    public  class Application
     {
+        public int Id { get; set; }
+        public int? UserId { get; set; }
+        public virtual User User { get; set; }
+
+        public int JobId { get; set; }
+        public virtual Job Job { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public byte[] CVFile { get; set; }
     }
 }

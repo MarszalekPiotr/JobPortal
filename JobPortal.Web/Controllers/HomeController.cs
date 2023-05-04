@@ -22,7 +22,7 @@ namespace JobPortal.Web.Controllers
         public IActionResult Index()
         {    
             
-            var listOfJobs = _jobService.GetAllJobs();
+            //var listOfJobs = _jobService.GetAllJobs();
             return View();
         }
 

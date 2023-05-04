@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Domain.Model
 {
-    internal class Tag
+    public  class Tag
     {
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<JobTag> JobTags { get; set; }
+
     }
 }
