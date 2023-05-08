@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Infrastructure
 {
-    public  class Context : IdentityDbContext
+    public  class Context : IdentityDbContext<User>
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -23,7 +23,7 @@ namespace JobPortal.Infrastructure
 
 
 
-        public Context(DbContextOptions options):base(options)
+        public Context(DbContextOptions<Context> options):base(options)
        {
 
 

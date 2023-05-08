@@ -21,7 +21,7 @@ namespace JobPortal.Domain.Model
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
          public User User { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
