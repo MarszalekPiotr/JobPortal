@@ -23,7 +23,7 @@ using Microsoft.Extensions.Logging;
 
 namespace JobPortal.Web.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+    public class RegisterModelNormalUser : PageModel
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -32,7 +32,7 @@ namespace JobPortal.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public RegisterModelNormalUser(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
@@ -101,15 +101,26 @@ namespace JobPortal.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [Display(Name ="Nazwa Firmy")]
+            [Display(Name ="Imię")]
             public string Name { get; set; }
 
-            [Required]
-            [Display(Name = "Lokalizacja firmy")]
-            public string Adress { get; set; }
 
             [Required]
-            [Display(Name = "Opis firmy")]
+            [Display(Name = "Nazwisko")]
+            public string Surname { get; set; }
+
+
+            [Required]
+            [Display(Name = "Adres")]
+            public string Adress { get; set; }
+
+
+            [Required]
+            [Display(Name = "Numer Telefonu")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "Opis (np. doświadczenie)")]
             public string Description { get; set; }
 
 
@@ -133,8 +144,11 @@ namespace JobPortal.Web.Areas.Identity.Pages.Account
                 var user = new User()
                 {
                     Name = Input.Name,
+                    Surname = Input.Surname,
                     Address = Input.Adress,
-                    Description = Input.Description
+                    PhoneNumber = Input.PhoneNumber,
+                    Description = Input.Description,
+                    IsCompany = false
                     
                     
 
@@ -144,6 +158,7 @@ namespace JobPortal.Web.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync((User)user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync((User)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((User)user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "NormalUser");
 
                 if (result.Succeeded)
                 {

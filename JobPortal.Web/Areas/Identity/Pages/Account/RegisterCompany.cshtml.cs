@@ -144,7 +144,7 @@ namespace JobPortal.Web.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync((User)user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync((User)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((User)user, Input.Password);
-
+                await _userManager.AddToRoleAsync(user, "Company");
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
