@@ -1,4 +1,5 @@
-﻿using JobPortal.Domain.Model;
+﻿using JobPortal.Domain.Interfaces;
+using JobPortal.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Infrastructure.Repositories
 {
-    public class ApplicationRepository
+    public class ApplicationRepository : IApplicationRepository
     {   
         private readonly Context _context;
         public ApplicationRepository(Context context)

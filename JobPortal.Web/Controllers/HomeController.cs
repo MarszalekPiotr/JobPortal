@@ -18,11 +18,11 @@ namespace JobPortal.Web.Controllers
             _jobService = jobService;
         }
 
-        [Route("Jobs/All")]
+        //[Route("Jobs/All")]
         public IActionResult Index()
         {    
             
-            //var listOfJobs = _jobService.GetAllJobs();
+            
             return View();
         }
 
