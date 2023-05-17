@@ -16,6 +16,13 @@ namespace JobPortal.Application.Services
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
+
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+        {
+            _categoryRepository = categoryRepository;
+            _mapper = mapper;
+        }
+
         public int AddCategory(NewCategoryViewModel category)
         {
             throw new NotImplementedException();
@@ -28,8 +35,16 @@ namespace JobPortal.Application.Services
 
         public ListCategoryForListViewModel GetCateogryList()
         {
-            var Categories = _categoryRepository.GetAllCategories()
-                .ProjectTo<CategoryForListViewModel>(_mapper.ConfigurationProvider).ToList();
+            var CategoriesModels = _categoryRepository.GetAllCategories();
+            var Categories = new List<CategoryForListViewModel>();
+
+            foreach(var category in CategoriesModels)
+            {
+                Categories.Add(new CategoryForListViewModel() { Id = category.Id, Name = category.Name });
+            }
+           
+
+
 
             var listOfCategories = new ListCategoryForListViewModel()
             {

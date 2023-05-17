@@ -30,8 +30,14 @@ namespace JobPortal.Application.Services
 
         public ListOfTagsForListViewModel GetAllTags()
         {
-            var tags = _tagRepository.GetAllTags()
-              .ProjectTo<TagForListViewModel>(_mapper.ConfigurationProvider).ToList();
+            var TagsModels = _tagRepository.GetAllTags();
+            var tags = new List<TagForListViewModel>();
+
+            foreach (var tag in TagsModels)
+            {
+                tags.Add(new TagForListViewModel() { Id = tag.Id, Name = tag.Name });
+            }
+
 
             var listOfTags = new ListOfTagsForListViewModel()
             {

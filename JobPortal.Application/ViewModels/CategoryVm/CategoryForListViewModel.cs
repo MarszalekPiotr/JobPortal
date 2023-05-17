@@ -17,9 +17,8 @@ namespace JobPortal.Application.ViewModels.CategoryVm
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Category, CategoryForListViewModel>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name));
+            profile.CreateMap<Category, CategoryForListViewModel>();
+                
         }
     }
 }

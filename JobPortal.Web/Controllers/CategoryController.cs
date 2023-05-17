@@ -17,9 +17,9 @@ namespace JobPortal.Web.Controllers
 
         //admin
         public IActionResult Index()
-        {   
-            // Lista kategorii z podstawowoymi operacjami 
-            return View();
+        {
+            var model = _categoryService.GetCateogryList();
+            return View(model);
         }
 
         //dodanie kategorii admin
