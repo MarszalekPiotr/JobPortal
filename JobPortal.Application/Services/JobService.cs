@@ -1,4 +1,6 @@
 ﻿using JobPortal.Application.Interfaces;
+using JobPortal.Application.ViewModels.JobvM;
+using JobPortal.Application.ViewModels.JobVm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,36 @@ namespace JobPortal.Application.Services
 {
     public class JobService : IJobService
     {
-        public List<string> GetAllJobs()
+        public int AddJob(int CompanyId, NewJobViewModel job)
         {
-            return new List<string>();
+            throw new NotImplementedException();
+        }
+
+        public int DeleteJob(int JobId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ListOfJobsForListViewModel GetAllJobs()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ListOfJobsForListViewModel GetJobByCompanyId(int comoanyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public JobDetailsViewModel GetJobDetails(int jobId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateJob(int id, NewJobViewModel model)
+        {
+            throw new NotImplementedException();
         }
 
         
-
     }
 }

@@ -12,7 +12,8 @@ namespace JobPortal.Application.Interfaces
     {
 
         ListOfJobsForListViewModel GetAllJobs();
-        int AddJob(NewJobViewModel job);
+        ListOfJobsForListViewModel GetJobByCompanyId(int comoanyId);
+        int AddJob(int CompanyId,NewJobViewModel job);
         JobDetailsViewModel GetJobDetails(int jobId);
         int UpdateJob(int id, NewJobViewModel model );
         int DeleteJob(int JobId);

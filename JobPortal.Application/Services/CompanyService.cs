@@ -1,5 +1,5 @@
 ﻿using JobPortal.Application.Interfaces;
-using JobPortal.Application.ViewModels.CategoryVm;
+using JobPortal.Application.ViewModels.CompanyVm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +8,14 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Application.Services
 {
-    public class CategoryService : ICategoryService
+    public class CompanyService : ICompanyService
     {
-        public int AddCategory(NewCategoryViewModel category)
+        public ListOfCompanyForListViewModel GerAllCompanies()
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCategory(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ListCategoryForListViewModel> GetCateogryList()
+        public CompanyDetailsViewModel GetCompanyDetailsById(int Id)
         {
             throw new NotImplementedException();
         }
