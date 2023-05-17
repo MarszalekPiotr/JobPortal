@@ -1,4 +1,5 @@
 ﻿using JobPortal.Application.Interfaces;
+using JobPortal.Application.ViewModels.CategoryVm;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.Web.Controllers
@@ -27,13 +28,15 @@ namespace JobPortal.Web.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public IActionResult AddCategory(CategoryModel model)
-        //{
-        //    var id = _categoryService.AddCategory(model);
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult AddCategory(NewCategoryViewModel model)
+        {
+            var id = _categoryService.AddCategory(model);
+            return View();
+        }
 
+
+        //useless chyba
         [HttpGet]
         public IActionResult ViewCategory(int CategoryId)
         {   

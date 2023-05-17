@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobPortal.Application.ViewModels.CategoryVm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace JobPortal.Application.Interfaces
 {
     public  interface ICategoryService
     {
-
+        int AddCategory(NewCategoryViewModel category);
+        void DeleteCategory(int id);
+        List<ListCategoryForListViewModel> GetCateogryList();
     }
 }

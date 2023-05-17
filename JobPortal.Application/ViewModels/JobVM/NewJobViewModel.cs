@@ -1,4 +1,5 @@
 ﻿using JobPortal.Application.ViewModels.CategoryVm;
+using JobPortal.Application.ViewModels.JobVM;
 using JobPortal.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace JobPortal.Application.ViewModels.JobVm
         public decimal HighestSalary { get; set; }
 
         public CategoryForListViewModel  Category { get; set; }
-        public List<TagForListViewModel> Tags { get; set; }
+        public ListOfTagsForListViewModel Tags { get; set; }
 
     }
 }
