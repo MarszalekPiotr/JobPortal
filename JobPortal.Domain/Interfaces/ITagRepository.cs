@@ -9,7 +9,7 @@ namespace JobPortal.Domain.Interfaces
 {
     public interface ITagRepository
     {
-        IQueryable<Tag> GetAllTags(int tagId);
+        IQueryable<Tag> GetAllTags();
         Tag GetTag(int tagId);
         int AddTag(Tag tag);
       

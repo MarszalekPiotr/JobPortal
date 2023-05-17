@@ -1,5 +1,10 @@
-﻿using JobPortal.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using JobPortal.Application.Interfaces;
+using JobPortal.Application.ViewModels.CategoryVm;
+using JobPortal.Application.ViewModels.JobVm;
 using JobPortal.Application.ViewModels.JobVM;
+using JobPortal.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +15,11 @@ namespace JobPortal.Application.Services
 {
     public class TagService : ITagService
     {
+        private readonly ITagRepository _tagRepository;
+        private readonly IMapper _mapper;
         public int AddTag(NewTagViewModel model)
-        {
+        {    
+            
             throw new NotImplementedException();
         }
 
@@ -22,7 +30,19 @@ namespace JobPortal.Application.Services
 
         public ListOfTagsForListViewModel GetAllTags()
         {
-            throw new NotImplementedException();
+            var tags = _tagRepository.GetAllTags()
+              .ProjectTo<TagForListViewModel>(_mapper.ConfigurationProvider).ToList();
+
+            var listOfTags = new ListOfTagsForListViewModel()
+            {
+                Tags = tags,
+                Count = tags.Count
+
+               
+
+            };
+
+            return listOfTags;
         }
 
         public int UpdateTag(int tagId, NewTagViewModel model)

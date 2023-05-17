@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Application.Interfaces
 {
-    public  interface ICompanyService
+    public  interface IUserService
     {
-        ListOfCompanyForListViewModel GerAllCompanies();
+        ListOfCompanyForListViewModel GetAllCompanies();
         CompanyDetailsViewModel GetCompanyDetailsById(int Id);
     }
 }

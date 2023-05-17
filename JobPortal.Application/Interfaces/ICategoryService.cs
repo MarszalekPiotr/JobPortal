@@ -11,6 +11,6 @@ namespace JobPortal.Application.Interfaces
     {
         int AddCategory(NewCategoryViewModel category);
         void DeleteCategory(int id);
-        List<ListCategoryForListViewModel> GetCateogryList();
+        ListCategoryForListViewModel GetCateogryList();
     }
 }

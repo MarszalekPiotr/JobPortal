@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Application.Services
 {
-    public class CompanyService : ICompanyService
+    public class UserService : IUserService
     {
-        public ListOfCompanyForListViewModel GerAllCompanies()
+        public ListOfCompanyForListViewModel GetAllCompanies()
         {
             throw new NotImplementedException();
         }

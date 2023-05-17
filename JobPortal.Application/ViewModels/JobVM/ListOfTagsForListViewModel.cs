@@ -9,8 +9,7 @@ namespace JobPortal.Application.ViewModels.JobVM
 {
     public  class ListOfTagsForListViewModel
     {
-        List<TagForListViewModel> Tags { get; set; }
-
+        public List<TagForListViewModel> Tags { get; set; }
         public int Count { get; set; }
     }
 }

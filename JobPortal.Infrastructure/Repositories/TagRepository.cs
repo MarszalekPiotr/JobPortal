@@ -17,9 +17,9 @@ namespace JobPortal.Infrastructure.Repositories
             _context = context;
         }
 
-        public IQueryable<Tag> GetAllTags(int tagId)
+        public IQueryable<Tag> GetAllTags()
         {
-            var tags = _context.Tags.Where(t => t.Id == tagId);
+            var tags = _context.Tags;
             if (tags != null)
             {
                 return tags;
