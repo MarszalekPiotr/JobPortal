@@ -1,0 +1,69 @@
+﻿@model JobPortal.Application.ViewModels.JobvM.ListOfJobsForListViewModel
+
+@{
+    ViewData["Title"] = "CompanyPanel";
+}
+
+<h1>CompanyPanel</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nazwa Oferty
+            </th>
+            <th>
+                Lokalizacja
+            </th>
+            <th>
+                Nazwa Firmy
+            </th>
+            <th>
+                Minimalna pensja
+            </th>
+            <th>
+                Maksymalna pensja
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Jobs) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LowestSalary)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HighestSalary)
+
+                </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

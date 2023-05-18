@@ -40,6 +40,7 @@ namespace JobPortal.Infrastructure.Repositories
         public int AddTag(Tag tag)
         {
             _context.Tags.Add(tag);
+            _context.SaveChanges();
             return tag.Id;
         }
     }

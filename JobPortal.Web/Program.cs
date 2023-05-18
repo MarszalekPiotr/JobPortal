@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using JobPortal.Application.Interfaces;
 using JobPortal.Application.Services;
+using JobPortal.Application.ViewModels.CategoryVm;
+using JobPortal.Application.ViewModels.JobVM;
 using JobPortal.Domain.Interfaces;
 using JobPortal.Domain.Model;
 using JobPortal.Infrastructure;
@@ -19,7 +23,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<Context>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddFluentValidation();
 
 //services
 builder.Services.AddTransient<IJobService, JobService>();
@@ -39,6 +43,10 @@ builder.Services.AddTransient<IUserRepository, UserRepository>();
 //
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+
+// validators
+builder.Services.AddTransient<IValidator<NewCategoryViewModel>, NewCategoryValidator>();
+builder.Services.AddTransient<IValidator<NewTagViewModel>, NewTagValidator>();
 
 
 var app = builder.Build();

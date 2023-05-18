@@ -4,6 +4,7 @@ using JobPortal.Application.Interfaces;
 using JobPortal.Application.Mapping;
 using JobPortal.Application.ViewModels.CategoryVm;
 using JobPortal.Domain.Interfaces;
+using JobPortal.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,18 @@ namespace JobPortal.Application.Services
             _mapper = mapper;
         }
 
-        public int AddCategory(NewCategoryViewModel category)
+        public int AddCategory(NewCategoryViewModel categoryFromForm)
         {
-            throw new NotImplementedException();
+            var CategoryToAdd = new Category()
+            {   
+                
+                Name = categoryFromForm.Name,
+
+            };
+
+            _categoryRepository.AddCategory(CategoryToAdd);
+            return CategoryToAdd.Id;
+
         }
 
         public void DeleteCategory(int id)
