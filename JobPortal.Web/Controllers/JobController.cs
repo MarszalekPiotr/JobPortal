@@ -53,6 +53,8 @@ namespace JobPortal.Web.Controllers
         }
 
         [HttpGet]
+
+        [Authorize(Roles ="Company")]
         public IActionResult AddJob()
         {
             // pobrac wszystkie tagi i kategorie i dodac potem w formularzu ez
