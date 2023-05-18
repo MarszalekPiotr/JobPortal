@@ -18,9 +18,6 @@ namespace JobPortal.Web.Controllers
         private readonly ITagService _tagService;
         private readonly ICategoryService _categoryService;
 
-
-
-
         public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService)
         {
             _logger = logger;
@@ -42,6 +39,7 @@ namespace JobPortal.Web.Controllers
 
         // dodac role jako firma tylko ez
         //[Authorize(Roles = "Company")]
+        [Authorize(Roles = "Company")]
         public IActionResult CompanyPanel()
         {
 
