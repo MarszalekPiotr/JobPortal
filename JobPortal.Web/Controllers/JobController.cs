@@ -1,4 +1,7 @@
 ﻿using JobPortal.Application.Interfaces;
+using JobPortal.Application.Services;
+using JobPortal.Application.ViewModels.CategoryVm;
+using JobPortal.Application.ViewModels.JobVm;
 using JobPortal.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +47,21 @@ namespace JobPortal.Web.Controllers
             var id = _userManager.GetUserId(User);
             var listOfJobs = _jobService.GetJobByCompanyId(id);
             return View(listOfJobs);
+        }
+
+        [HttpGet]
+        public IActionResult AddCategory()
+        {
+            return View(new NewJobViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult AddCategory(NewJobViewModel model)
+        {   
+            var idOfCurrentUser = _userManager.GetUserId(User);
+            var id = _jobService.AddJob(idOfCurrentUser ,model);
+
+            return RedirectToAction("Index");
         }
     }
 }

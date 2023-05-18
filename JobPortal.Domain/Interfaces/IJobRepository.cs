@@ -14,8 +14,8 @@ namespace JobPortal.Domain.Interfaces
         int AddJob(Job job);
         void UpdateJob(Job job);
         public Job GetJob(int jobId);
-        IQueryable<Job> GetJobsByCategoryId(int categoryId);
-        IQueryable<Job> GetAllJobs();
+        List<Job> GetJobsByCategoryId(int categoryId);
+        List<Job> GetAllJobs();
         
 
 

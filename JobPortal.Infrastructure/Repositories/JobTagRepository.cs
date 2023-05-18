@@ -29,6 +29,12 @@ namespace JobPortal.Infrastructure.Repositories
             throw new Exception();
         }
 
+        public List<JobTag> GetJobTagsByJobId(int jobId)
+        {
+            List<JobTag> JobTags = _context.JobTags.Where( j => j.JobId == jobId).ToList();
+            return JobTags;
+        }
+
         public void RemoveJobTag(int jobTagId)
         {
             JobTag jobTag = _context.JobTags.FirstOrDefault(jt => jt.Id == jobTagId);

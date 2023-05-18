@@ -15,13 +15,17 @@ namespace JobPortal.Application.Services
     {
         private readonly IJobRepository _jobRepository;
         private readonly IUserRepository  _userRepository;
-        private ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IJobTagRepository _jobTagRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public JobService(IJobRepository jobRepository, IUserRepository userRepository, ICategoryRepository categoryRepository)
+        public JobService(IJobRepository jobRepository, IUserRepository userRepository, ICategoryRepository categoryRepository, IJobTagRepository jobTagRepository, ITagRepository tagRepository)
         {
             _jobRepository = jobRepository;
             _userRepository = userRepository;
             _categoryRepository = categoryRepository;
+            _jobTagRepository = jobTagRepository;
+            _tagRepository = tagRepository;
         }
 
         public int AddJob(string CompanyId, NewJobViewModel jobFromForm)
@@ -64,7 +68,7 @@ namespace JobPortal.Application.Services
         //public string CategoryName { get; set; }
         //public string CompanyName { get; set; }
 
-        public List<Tag> Tags { get; set; }
+  
         public ListOfJobsForListViewModel GetJobByCompanyId(string companyId)
         {
             var jobs = _jobRepository.GetAllJobs().Where(J => J.UserId == companyId);
@@ -75,7 +79,14 @@ namespace JobPortal.Application.Services
             foreach(var job in jobs)
             {     
                 // znalezc User Name i Category Name dzieki id ktore jest w job
-                //var category = _categoryRepository.GetCategory(job.Id);
+                var category = _categoryRepository.GetCategory(job.CategoryId);
+                var user = _userRepository.GetUserById(job.UserId);
+                var jobTagsForOffer = _jobTagRepository.GetJobTagsByJobId(job.Id);
+                var tags = new List<Tag>();
+                foreach (var jobTag in jobTagsForOffer) 
+                {
+                    tags.Add(_tagRepository.GetTag(jobTag.TagId));
+                }
 
                 var jobToAddToViewModel = new JobForListViewModel()
                 {
@@ -84,9 +95,9 @@ namespace JobPortal.Application.Services
                     Location = job.Location,
                     LowestSalary = job.LowestSalary,
                     HighestSalary = job.HighestSalary,
-                    //CategoryName = job.CategoryId // ALBO WYSZUKAC PRZEZ ID!!
-                    //CompanyName = job.UserId     // TAK SAMO 
-
+                    CategoryName = category.Name, // ALBO WYSZUKAC PRZEZ ID!!
+                    CompanyName = user.Name, // TAK SAMO
+                    Tags = tags
 
 
                 };

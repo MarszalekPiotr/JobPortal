@@ -66,19 +66,19 @@ namespace JobPortal.Infrastructure.Repositories
             return _context.Jobs.FirstOrDefault(j => j.Id == jobId);
         }
 
-        public IQueryable<Job> GetJobsByCategoryId(int categoryId)
+        public List<Job> GetJobsByCategoryId(int categoryId)
         {
             var jobs = _context.Jobs.Where(j => j.CategoryId == categoryId);
             if( jobs != null)
             {
-                return jobs;
+                return jobs.ToList();
             }
             throw new NullReferenceException();
         }
 
-        public IQueryable<Job> GetAllJobs()
+        public List<Job> GetAllJobs()
         {
-            var jobs = _context.Jobs;
+            var jobs = _context.Jobs.ToList();
             return jobs;
         }
 

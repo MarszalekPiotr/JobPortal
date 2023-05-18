@@ -10,6 +10,6 @@ namespace JobPortal.Application.Interfaces
     public  interface IUserService
     {
         ListOfCompanyForListViewModel GetAllCompanies();
-        CompanyDetailsViewModel GetCompanyDetailsById(int Id);
+        //CompanyDetailsViewModel GetCompanyDetailsById(string Id);
     }
 }

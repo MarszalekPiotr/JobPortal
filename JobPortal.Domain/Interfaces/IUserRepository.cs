@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobPortal.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace JobPortal.Domain.Interfaces
     public interface IUserRepository
     {
 
+        User GetUserById(string UserId);
 
     }
 }

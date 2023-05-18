@@ -11,6 +11,8 @@ namespace JobPortal.Domain.Interfaces
     {
         int AddJobTag(JobTag jobTag);
         void RemoveJobTag(int jobTagId);
+
+        List<JobTag> GetJobTagsByJobId(int jobId);
        
 
     }
