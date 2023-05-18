@@ -21,7 +21,7 @@ namespace JobPortal.Application.ViewModels.JobVm
         public int CategoryId { get; set; }
 
         
-        public List<Tag> Tags { get; set; }
+        public List<int> TagsIds { get; set; }
 
     }
 }

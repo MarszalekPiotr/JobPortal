@@ -6,8 +6,7 @@ using JobPortal.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace JobPortal.Web.Controllers
 {
@@ -16,15 +15,19 @@ namespace JobPortal.Web.Controllers
         private readonly ILogger<JobController> _logger;
         private readonly IJobService _jobService;
         private readonly UserManager<User> _userManager;
+        private readonly ITagService _tagService;
+        private readonly ICategoryService _categoryService;
 
 
-      
 
-        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager)
+
+        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService)
         {
             _logger = logger;
             _jobService = jobService;
             _userManager = userManager;
+            _tagService = tagService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -50,18 +53,25 @@ namespace JobPortal.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddCategory()
+        public IActionResult AddJob()
         {
+            // pobrac wszystkie tagi i kategorie i dodac potem w formularzu ez
+            var tagsListViewModel = _tagService.GetAllTags();
+            var categoryListViewModel = _categoryService.GetCateogryList();
+
+            ViewData["Categories"] = new SelectList(categoryListViewModel.Categories, "Id", "Name");
+            ViewData["Tags"] = new SelectList(tagsListViewModel.Tags, "Id", "Name");
+
             return View(new NewJobViewModel());
         }
 
         [HttpPost]
-        public IActionResult AddCategory(NewJobViewModel model)
+        public IActionResult AddJob(NewJobViewModel model)
         {   
             var idOfCurrentUser = _userManager.GetUserId(User);
             var id = _jobService.AddJob(idOfCurrentUser ,model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("CompanyPanel");
         }
     }
 }

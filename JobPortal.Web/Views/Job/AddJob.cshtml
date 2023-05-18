@@ -1,0 +1,70 @@
+﻿@model JobPortal.Application.ViewModels.JobVm.NewJobViewModel
+
+@{
+    ViewData["Title"] = "AddJob";
+}
+
+<h1>AddJob</h1>
+
+<h4>NewJobViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddJob">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <input type="hidden" asp-for="Id" class="form-control" />
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LowestSalary" class="control-label"></label>
+                <input asp-for="LowestSalary" class="form-control" />
+                <span asp-validation-for="LowestSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HighestSalary" class="control-label"></label>
+                <input asp-for="HighestSalary" class="form-control" />
+                <span asp-validation-for="HighestSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Kategoria</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TagsIds" class="control-label">Tagi</label>
+                <select asp-for="TagsIds" class="form-control" asp-items="ViewBag.Tags" multiple= "multiple">
+                </select>
+                <span asp-validation-for="TagsIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

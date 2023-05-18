@@ -44,7 +44,10 @@ namespace JobPortal.Application.Services
 
             };
 
-            _jobRepository.AddJob(JobToAdd);
+           int jobIdToAddingJobTag =  _jobRepository.AddJob(JobToAdd);
+            jobFromForm.TagsIds.ForEach(t => _jobTagRepository.AddJobTag(new JobTag() { JobId = jobIdToAddingJobTag, TagId = t }));
+
+            
 
 
             return JobToAdd.Id;
