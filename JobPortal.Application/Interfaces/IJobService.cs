@@ -12,10 +12,10 @@ namespace JobPortal.Application.Interfaces
     {
 
         ListOfJobsForListViewModel GetAllJobs();
-        ListOfJobsForListViewModel GetAllJobsForUser(string searchStringJobName, int SearchStringCategoryName, List<int> TagNames);
+        ListOfJobsForListViewModel GetAllJobsForUser(string searchStringJobName, int SearchStringCategoryName, List<int> TagNames, string searchStringLocation);
         ListOfJobsForListViewModel GetJobByCompanyId(string companyId);
         int AddJob(string CompanyId,NewJobViewModel job);
-        JobDetailsViewModel GetJobDetails(int jobId);
+        JobDetailsViewModel GetJobDetailsForUser(int jobId);
         int UpdateJob(int id, NewJobViewModel model );
         int DeleteJob(int JobId);
 

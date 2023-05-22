@@ -12,7 +12,9 @@ namespace JobPortal.Domain.Interfaces
 
         int AddApplication(Application application);
         void RemoveApplicationById(int ApplicationId);
-        
+        List<Application> GetAllApplications();
+
+
 
     }
 }

@@ -18,6 +18,13 @@
         </div>
     </div>
     <div class="form-group">
+        <div class="form-group">
+            <label asp-for="LocationSearchString" class="control-label"> Lokalizacja </label>
+            <input asp-for="LocationSearchString" class="form-control" />
+            <span asp-validation-for="LocationSearchString" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="CategoryName" class="control-label">Kategoria</label>
         <select asp-for="CategoryName" class="form-control" asp-items="ViewBag.Categories">
         </select>
@@ -104,9 +111,9 @@
 
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                   
+                    @Html.ActionLink("Details", "DetailsForUser", new { id=item.Id }) |
+                
                 </td>
             </tr>
         }

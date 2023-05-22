@@ -13,5 +13,7 @@ namespace JobPortal.Application.Interfaces
         ApplicationDetailsViewModel GetApplicationDetailsByApplicationId(int ApplicationId);
 
         int AddApplication(NewApplicationViewModel newApplication);
+
+        List<JobPortal.Domain.Model.Application> GetAllApplications();
     }
 }

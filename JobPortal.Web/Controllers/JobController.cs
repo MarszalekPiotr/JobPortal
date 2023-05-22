@@ -1,5 +1,6 @@
 ﻿using JobPortal.Application.Interfaces;
 using JobPortal.Application.Services;
+using JobPortal.Application.ViewModels.ApplicationVm;
 using JobPortal.Application.ViewModels.CategoryVm;
 using JobPortal.Application.ViewModels.JobVm;
 using JobPortal.Application.ViewModels.JobVM;
@@ -18,14 +19,48 @@ namespace JobPortal.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ITagService _tagService;
         private readonly ICategoryService _categoryService;
+        private readonly IApplicationService _applicationService;
 
-        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService)
+        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService, IApplicationService applicationService)
         {
             _logger = logger;
             _jobService = jobService;
             _userManager = userManager;
             _tagService = tagService;
             _categoryService = categoryService;
+            _applicationService = applicationService;
+        }
+
+        [HttpGet]
+        public IActionResult Apply(int id)
+        {
+            NewApplicationViewModel newApp = new NewApplicationViewModel()
+            {
+                JobId = id,
+                UserId = _userManager.GetUserId(User)
+            };
+
+            return View(newApp);
+        
+        }
+        [HttpPost]
+        public IActionResult Apply(NewApplicationViewModel newApp)
+        {
+            // dodanie aplikacji
+
+            _applicationService.AddApplication(newApp);
+
+            return RedirectToAction("Index");
+
+        }
+
+
+
+        public IActionResult DetailsForUser(int id)
+        {
+            var model = _jobService.GetJobDetailsForUser(id);
+            return View(model);
+
         }
 
         //[Route("Jobs/all")]
@@ -54,7 +89,8 @@ namespace JobPortal.Web.Controllers
             var searchStringJobName = qvm.SearchString;
             var SearchStringCategoryName = qvm.CategoryName;
             var TagNames = qvm.TagNames;
-            ViewData["Jobs"] =  _jobService.GetAllJobsForUser(searchStringJobName,  SearchStringCategoryName, TagNames);
+            var Location = qvm.LocationSearchString;
+            ViewData["Jobs"] =  _jobService.GetAllJobsForUser(searchStringJobName,  SearchStringCategoryName, TagNames, Location);
 
             return View();
         }

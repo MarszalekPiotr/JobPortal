@@ -16,6 +16,11 @@ namespace JobPortal.Infrastructure.Repositories
             _context = context;
         }
 
+
+        public List<Application> GetAllApplications()
+        {
+            return _context.Applications.ToList();
+        }
         public int AddApplication(Application application)
         {
             if(application != null)

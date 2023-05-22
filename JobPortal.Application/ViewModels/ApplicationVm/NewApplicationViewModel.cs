@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +10,8 @@ namespace JobPortal.Application.ViewModels.ApplicationVm
 {
     public  class NewApplicationViewModel
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int JobId { get; set; }
-        public byte[] CV { get; set; }
+        public IFormFile CV { get; set; }
     }
 }

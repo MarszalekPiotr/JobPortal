@@ -62,7 +62,7 @@ namespace JobPortal.Application.Services
         // zmienic parametry dla filtrowania i paginacji
         // zmienic model lekko z page size itd.
         // zmienic nazwe funkcji
-        public ListOfJobsForListViewModel GetAllJobsForUser(string searchStringJobName, int SearchStringCategoryName, List<int> TagNames)
+        public ListOfJobsForListViewModel GetAllJobsForUser(string searchStringJobName, int SearchStringCategoryName, List<int> TagNames, string searchStringLocation)
         {
             var jobs = _jobRepository.GetAllJobs();
             List<JobForListViewModel> listOfJobsForViewModel = new List<JobForListViewModel>();
@@ -104,6 +104,7 @@ namespace JobPortal.Application.Services
             listModel.Jobs = (List<JobForListViewModel>)listModel.Jobs.Where(j => j.Name.StartsWith(searchStringJobName))
              .Where(j => j.CategoryName == CategoryForSearch.Name)
              .Where(j => TagNames.All(tn => j.Tags.Any(t => tn == t.Id)) || TagNames.Any(tn => j.Tags.Any(t => tn ==t.Id)))
+             .Where(j => j.Location.StartsWith(searchStringLocation))
              .ToList();
 
 
@@ -204,11 +205,44 @@ namespace JobPortal.Application.Services
             return listModel;
 
         }
+        //public int Id { get; set; }
+        //public string Name { get; set; }
+        //public string Description { get; set; }
+        //public string Location { get; set; }
+        //public decimal LowestSalary { get; set; }
+        //public decimal HighestSalary { get; set; }
+        //public string CategoryName { get; set; }
+        //public string CompanyName { get; set; }
 
-        public JobDetailsViewModel GetJobDetails(int jobId)
+        //public List<Tag> Tags { get; set; }
+        public JobDetailsViewModel GetJobDetailsForUser(int jobId)
         {
-            throw new NotImplementedException();
+            var jobFromDatabase = _jobRepository.GetJob(jobId);
+            var CompanyName = _userRepository.GetUserById(jobFromDatabase.UserId).Name;
+            var CategoryName = _categoryRepository.GetCategory(jobFromDatabase.CategoryId).Name;
+            List<JobTag> JobTags = _jobTagRepository.GetJobTagsByJobId(jobId);
+            List<Tag> Tags = new List<Tag>();
+            JobTags.ForEach(jt => Tags.Add(_tagRepository.GetTag(jt.TagId)));
+            JobDetailsViewModel jobDetailsViewModel = new JobDetailsViewModel()
+            {
+                Id = jobFromDatabase.Id,
+                Name = jobFromDatabase.Name,
+                Location = jobFromDatabase.Location,
+                Description = jobFromDatabase.Description,
+                LowestSalary = jobFromDatabase.LowestSalary,
+                HighestSalary = jobFromDatabase.HighestSalary,
+                CategoryName = CategoryName,
+                CompanyName = CompanyName,
+                Tags = Tags
+
+            };
+
+            return jobDetailsViewModel;
+            
+
         }
+
+        
 
         public int UpdateJob(int id, NewJobViewModel model)
         {
