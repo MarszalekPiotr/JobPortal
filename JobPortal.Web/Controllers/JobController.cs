@@ -2,6 +2,7 @@
 using JobPortal.Application.Services;
 using JobPortal.Application.ViewModels.CategoryVm;
 using JobPortal.Application.ViewModels.JobVm;
+using JobPortal.Application.ViewModels.JobVM;
 using JobPortal.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,13 +28,34 @@ namespace JobPortal.Web.Controllers
             _categoryService = categoryService;
         }
 
+        //[Route("Jobs/all")]
         public IActionResult Index()
         {
-            //var listOfJobs = _jobService.GetAllJobs();
-            // stworzenie widoku na górze wyszukiwarka i pod nia lista
-            // pobranie z seriwsu listy elementow i przekazanie do wikdoku 
-            // serwis musi przygotwac dane i zwrocic je w odpowiednim formacie
-            // mozliwe ze viewmodel ale w sumue w moim przypadku jest git 
+            var tagsListViewModel = _tagService.GetAllTags();
+            var categoryListViewModel = _categoryService.GetCateogryList();
+
+            ViewData["Categories"] = new SelectList(categoryListViewModel.Categories, "Id", "Name");
+            ViewData["Tags"] = new SelectList(tagsListViewModel.Tags, "Id", "Name");
+            ViewData["Jobs"] = _jobService.GetAllJobs();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(QueryViewModel qvm)
+        {   
+
+            var tagsListViewModel = _tagService.GetAllTags();
+            var categoryListViewModel = _categoryService.GetCateogryList();
+            // podmiana id i name
+            ViewData["Categories"] = new SelectList(categoryListViewModel.Categories,   "Id", "Name");
+            ViewData["Tags"] = new SelectList(tagsListViewModel.Tags, "Id", "Name");
+
+            var searchStringJobName = qvm.SearchString;
+            var SearchStringCategoryName = qvm.CategoryName;
+            var TagNames = qvm.TagNames;
+            ViewData["Jobs"] =  _jobService.GetAllJobsForUser(searchStringJobName,  SearchStringCategoryName, TagNames);
+
             return View();
         }
 
@@ -50,8 +72,8 @@ namespace JobPortal.Web.Controllers
             return View(listOfJobs);
         }
 
-        [HttpGet]
 
+        [HttpGet]
         [Authorize(Roles ="Company")]
         public IActionResult AddJob()
         {

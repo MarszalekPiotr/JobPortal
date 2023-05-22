@@ -1,0 +1,114 @@
+﻿@using JobPortal.Application.ViewModels.JobvM;
+@model JobPortal.Application.ViewModels.JobVM.QueryViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+    
+
+<form asp-action="Index"  asp-controller="Job" method = "post">
+    <div class="form-group">
+        <div class="form-group">
+            <label asp-for="SearchString" class="control-label">Nazwa</label>
+            <input asp-for="SearchString" class="form-control" />
+            <span asp-validation-for="SearchString" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryName" class="control-label">Kategoria</label>
+        <select asp-for="CategoryName" class="form-control" asp-items="ViewBag.Categories">
+        </select>
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TagNames" class="control-label">Tagi</label>
+        <select asp-for="TagNames" class="form-control" asp-items="ViewBag.Tags" multiple="multiple">
+        </select>
+        <span asp-validation-for="TagNames" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Wyszukaj" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nazwa Oferty
+            </th>
+            <th>
+                Lokalizacja
+            </th>
+            <th>
+                Nazwa Firmy
+            </th>
+            <th>
+                Kategoria
+            </th>
+            <th>
+                Minimalna pensja
+            </th>
+            <th>
+                Maksymalna pensja
+            </th>
+            <th>
+                Tagi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<JobForListViewModel>)ViewBag.Jobs.Jobs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LowestSalary)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HighestSalary)
+
+                </td>
+                <td>
+                    @foreach (var tag in item.Tags)
+                    {
+                        <div>
+                            #@tag.Name
+
+                        </div>
+                    }
+
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
