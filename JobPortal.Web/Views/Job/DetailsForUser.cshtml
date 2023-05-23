@@ -68,6 +68,9 @@
     </ul>
 
     @Html.ActionLink("Aplikuj", "Apply", new {id = Model.Id})
+
+   @*Tutaj Dodac widocznosc tylko dla firmy a u gory dla usera*@
+    @Html.ActionLink("Lista Aplikacji","ApplicationAtJob", "Application", new {id = Model.Id})
 </div>
 <div>
     

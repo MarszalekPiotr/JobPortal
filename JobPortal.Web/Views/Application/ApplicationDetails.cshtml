@@ -1,0 +1,63 @@
+﻿@model JobPortal.Application.ViewModels.ApplicationVm.ApplicationDetailsViewModel
+
+@{
+    ViewData["Title"] = "ApplicationDetails";
+}
+
+<h1>ApplicationDetails</h1>
+
+<div>
+    <h4>Aplikant </h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Data Aplikacji
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationDate)
+        </dd>
+        <dt class="col-sm-2">
+            Imię 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Nazwisko 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.Surname)
+        </dd>
+        <dt class="col-sm-2">
+            E-mail 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.Email)
+        </dd>
+        <dt class="col-sm-2">
+            Numer Telefonu 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Adres
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.Address)
+        </dd>
+        <dt class="col-sm-2">
+            Opis
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserDetails.Description)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @*zmiana metod*@
+    @Html.ActionLink("Pobierz Plik CV dla tej aplikacji", "DownloadCV", new { id = Model.Id }) |
+    @Html.ActionLink("Wyświetl Plik CV dla tej aplikacji", "OpenCV", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

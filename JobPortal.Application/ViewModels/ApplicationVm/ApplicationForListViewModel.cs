@@ -11,7 +11,9 @@ namespace JobPortal.Application.ViewModels.ApplicationVm
     public  class ApplicationForListViewModel
     {   
         public int Id { get; set; }
-        public UserForListViewModel Applicant;
+        public string ApplicantName { get; set; }
+        public string ApplicantSurname { get; set; }
+        public string ApplicantEmail { get; set; }
         public string JobName { get; set; }
         public DateTime DateTime { get; set; }
          

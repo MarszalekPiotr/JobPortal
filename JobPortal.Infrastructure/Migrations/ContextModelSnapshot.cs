@@ -24,11 +24,11 @@ namespace JobPortal.Infrastructure.Migrations
 
             modelBuilder.Entity("JobPortal.Domain.Model.Application", b =>
                 {
-                    b.Property<int>("JobId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<byte[]>("CVFile")
                         .IsRequired()
@@ -37,10 +37,16 @@ namespace JobPortal.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.HasKey("JobId", "UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
 
                     b.HasIndex("UserId");
 

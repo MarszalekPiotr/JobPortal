@@ -13,10 +13,43 @@ namespace JobPortal.Web.Controllers
         }
 
         public IActionResult Index()
-        {    
+        {
             var applications = _applicationService.GetAllApplications();
-            return File(applications[0].CVFile, System.Net.Mime.MediaTypeNames.Application.Octet, "application.pdf");
-            
+            return View();
+            //return File(applications[0].CVFile, System.Net.Mime.MediaTypeNames.Application.Octet, "application.pdf");
+
+        }
+
+        public IActionResult ApplicationAtJob(int id)
+        {
+            var model = _applicationService.GetApplicationsByJobId(id);
+            return View(model);
+        }
+
+        public IActionResult ApplicationDetails(int id)
+        {
+            var model = _applicationService.GetApplicationDetailsByApplicationId(id);
+            return View(model);
+        }
+
+        public IActionResult DownloadCv(int id)
+        {
+            var applicationFileVm = _applicationService.GetUserCvByApplicationId(id);
+            var fileBytes = applicationFileVm.CVFile;
+            var fileName = $"{applicationFileVm.UserSurname}_{applicationFileVm.UserName}_CV.pdf";
+
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+
+        }
+
+        public IActionResult OpenCv(int id)
+        {
+            var applicationFileVm = _applicationService.GetUserCvByApplicationId(id);
+            var fileBytes = applicationFileVm.CVFile;
+            var fileName = $"{applicationFileVm.UserSurname}_{applicationFileVm.UserName}_CV.pdf";
+
+            return File(fileBytes ,"application/pdf");
+
         }
     }
 }

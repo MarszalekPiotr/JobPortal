@@ -43,6 +43,14 @@ namespace JobPortal.Infrastructure.Repositories
             }
         }
 
-
+        public Application GetApplicationById(int ApplicationId)
+        {
+            Application app = _context.Applications.FirstOrDefault(a => a.Id == ApplicationId);
+            if(app != null)
+            {
+                return app;
+            }
+            throw new Exception();
+        }
     }
 }

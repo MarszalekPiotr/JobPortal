@@ -14,6 +14,8 @@ namespace JobPortal.Domain.Interfaces
         void RemoveApplicationById(int ApplicationId);
         List<Application> GetAllApplications();
 
+        Application GetApplicationById(int ApplicationId);
+
 
 
     }

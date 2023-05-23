@@ -1,0 +1,52 @@
+﻿@model JobPortal.Application.ViewModels.ApplicationVm.ListOfApplicationsViewModel
+
+@{
+    ViewData["Title"] = "ApplicationAtJob";
+}
+
+<h1>ApplicationAtJob</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Imię 
+            </th>
+            <th>
+                Nazwisko
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
+                Data Aplikacji
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Applications) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicantName)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicantSurname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicantEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+            <td>
+                @Html.ActionLink("Szczegóły Aplikacji", "ApplicationDetails", new {  id=item.Id }) |
+       
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

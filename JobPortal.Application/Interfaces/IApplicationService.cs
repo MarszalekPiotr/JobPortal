@@ -15,5 +15,6 @@ namespace JobPortal.Application.Interfaces
         int AddApplication(NewApplicationViewModel newApplication);
 
         List<JobPortal.Domain.Model.Application> GetAllApplications();
+        ApplicationFileViewModel GetUserCvByApplicationId(int id);
     }
 }
