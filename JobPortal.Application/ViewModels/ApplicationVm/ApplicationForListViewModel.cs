@@ -10,7 +10,8 @@ namespace JobPortal.Application.ViewModels.ApplicationVm
 {
     public  class ApplicationForListViewModel
     {   
-        public int Id { get; set; }
+        public string UserId { get; set; }
+        public int JobId { get; set; }
         public string ApplicantName { get; set; }
         public string ApplicantSurname { get; set; }
         public string ApplicantEmail { get; set; }

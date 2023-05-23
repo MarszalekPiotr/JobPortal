@@ -9,7 +9,7 @@ namespace JobPortal.Application.ViewModels.ApplicationVm
 {
     public  class ApplicationDetailsViewModel
     {    
-        public int Id { get; set; }
+        public int JobId { get; set; }
         public UserDetailsViewModel UserDetails { get; set; }
         public DateTime ApplicationDate { get; set; }
     }

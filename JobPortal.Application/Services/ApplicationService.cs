@@ -15,11 +15,13 @@ namespace JobPortal.Application.Services
     {
         private readonly IApplicationRepository _applicationRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IJobRepository _jobRepository;
 
-        public ApplicationService(IApplicationRepository applicationRepository, IUserRepository userRepository)
+        public ApplicationService(IApplicationRepository applicationRepository, IUserRepository userRepository, IJobRepository jobRepository)
         {
             _applicationRepository = applicationRepository;
             _userRepository = userRepository;
+            _jobRepository = jobRepository;
         }
 
         public List<JobPortal.Domain.Model.Application> GetAllApplications()
@@ -43,10 +45,10 @@ namespace JobPortal.Application.Services
             }
         }
 
-        public ApplicationFileViewModel GetUserCvByApplicationId(int id)
+        public ApplicationFileViewModel GetUserCvByApplicationId(string UserId,int JobId)
         {    
             // zmienic na pobieranie Cv by UserId i JobId 
-            var application = _applicationRepository.GetApplicationById(id);
+            var application = _applicationRepository.GetApplicationById(UserId,JobId);
             var user = _userRepository.GetUserById(application.UserId);
             ApplicationFileViewModel applicationFileViewModel = new ApplicationFileViewModel()
             {
@@ -99,9 +101,9 @@ namespace JobPortal.Application.Services
         }
 
         // zmienic na job id i user id
-        public ApplicationDetailsViewModel GetApplicationDetailsByApplicationId(int ApplicationId)
+        public ApplicationDetailsViewModel GetApplicationDetailsByApplicationId(string UserId, int JobId)
         {
-            var application = _applicationRepository.GetApplicationById(ApplicationId);
+            var application = _applicationRepository.GetApplicationById(UserId, JobId);
             var Applicant = _userRepository.GetUserById(application.UserId);
 
             UserDetailsViewModel userDetailsViewModel = new UserDetailsViewModel()
@@ -117,7 +119,7 @@ namespace JobPortal.Application.Services
 
             };
             ApplicationDetailsViewModel applicationDetailsViewModel = new ApplicationDetailsViewModel();
-            applicationDetailsViewModel.Id = application.Id;
+            applicationDetailsViewModel.JobId= application.JobId;
             applicationDetailsViewModel.UserDetails = userDetailsViewModel;
             applicationDetailsViewModel.ApplicationDate = application.CreatedAt;
 
@@ -135,9 +137,12 @@ namespace JobPortal.Application.Services
             foreach (var application in applications)
             {    
                 var Applicant = _userRepository.GetUserById(application.UserId);
+                
                 applicationsForListViewModels.Add(new ApplicationForListViewModel()
                 {
-                    Id = application.Id,
+                    
+                    UserId = application.UserId,
+                    JobId = application.JobId,
                     ApplicantName = Applicant.Name,
                     ApplicantEmail = Applicant.Email,
                     ApplicantSurname = Applicant.Surname,

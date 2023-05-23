@@ -1,5 +1,7 @@
 ﻿@model JobPortal.Application.ViewModels.JobvM.JobDetailsViewModel
-
+@{
+   
+}
 @{
     ViewData["Title"] = "DetailsForUser";
 }
@@ -67,10 +69,31 @@
         }
     </ul>
 
-    @Html.ActionLink("Aplikuj", "Apply", new {id = Model.Id})
+    @{
+        if (ViewBag.IsCompany)
+        {
+            @Html.ActionLink("Lista Aplikacji", "ApplicationAtJob", "Application", new { id = Model.Id });
+        }
+        else
+        {
+            if (!ViewBag.AlreadyApplied)
+            {
+                @Html.ActionLink("Aplikuj", "Apply", new {id = Model.Id});
+            }
+        }
+
+        
+    }
+
+    @if (ViewBag.AlreadyApplied)
+    {
+        <div> Juz zaaplikowano </div>
+    }
+
+   
 
    @*Tutaj Dodac widocznosc tylko dla firmy a u gory dla usera*@
-    @Html.ActionLink("Lista Aplikacji","ApplicationAtJob", "Application", new {id = Model.Id})
+ 
 </div>
 <div>
     

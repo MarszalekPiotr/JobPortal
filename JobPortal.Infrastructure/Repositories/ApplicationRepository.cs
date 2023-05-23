@@ -25,6 +25,7 @@ namespace JobPortal.Infrastructure.Repositories
         {
             if(application != null)
             {
+                application.Id = 1;
                 _context.Applications.Add(application);
                 _context.SaveChanges();
                 return application.Id;
@@ -43,14 +44,26 @@ namespace JobPortal.Infrastructure.Repositories
             }
         }
 
-        public Application GetApplicationById(int ApplicationId)
+        public Application GetApplicationById(string UserId,int JobId)
         {
-            Application app = _context.Applications.FirstOrDefault(a => a.Id == ApplicationId);
+            Application app = _context.Applications.FirstOrDefault(a => a.UserId == UserId && a.JobId == JobId);
+            
             if(app != null)
             {
                 return app;
+
             }
             throw new Exception();
+
+        }
+
+        public bool Exist(string UserId, int JobId)
+        {
+            Application app = _context.Applications.FirstOrDefault(a => a.UserId == UserId && a.JobId == JobId);
+            if( app != null){
+                return true;
+            }
+            return false;
         }
     }
 }

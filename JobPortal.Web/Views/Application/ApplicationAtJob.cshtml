@@ -43,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
             <td>
-                @Html.ActionLink("Szczegóły Aplikacji", "ApplicationDetails", new {  id=item.Id }) |
+                @Html.ActionLink("Szczegóły Aplikacji", "ApplicationDetails", new {  UserId = item.UserId, JobId = item.JobId}) |
        
             </td>
         </tr>

@@ -4,6 +4,7 @@ using JobPortal.Application.ViewModels.ApplicationVm;
 using JobPortal.Application.ViewModels.CategoryVm;
 using JobPortal.Application.ViewModels.JobVm;
 using JobPortal.Application.ViewModels.JobVM;
+using JobPortal.Domain.Interfaces;
 using JobPortal.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,8 +21,9 @@ namespace JobPortal.Web.Controllers
         private readonly ITagService _tagService;
         private readonly ICategoryService _categoryService;
         private readonly IApplicationService _applicationService;
+        private readonly IApplicationRepository _applicationRepository;
 
-        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService, IApplicationService applicationService)
+        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService, IApplicationService applicationService, IApplicationRepository applicationRepository)
         {
             _logger = logger;
             _jobService = jobService;
@@ -29,6 +31,7 @@ namespace JobPortal.Web.Controllers
             _tagService = tagService;
             _categoryService = categoryService;
             _applicationService = applicationService;
+            _applicationRepository = applicationRepository;
         }
 
         [HttpGet]
@@ -58,6 +61,28 @@ namespace JobPortal.Web.Controllers
 
         public IActionResult DetailsForUser(int id)
         {
+            var CurrentUserId = _userManager.GetUserId(User);
+            if (User.IsInRole("Company"))
+            {
+                ViewData["IsCompany"] = true;
+                ViewData["AlreadyApplied"] = false;
+
+            }
+            else
+            {
+                ViewData["IsCompany"] = false;
+                if (_applicationRepository.Exist(CurrentUserId, id))
+                {
+                    ViewData["AlreadyApplied"] = true;
+                 
+                }
+                else
+                {
+                    ViewData["AlreadyApplied"] = false;
+                }
+            }
+            
+
             var model = _jobService.GetJobDetailsForUser(id);
             return View(model);
 

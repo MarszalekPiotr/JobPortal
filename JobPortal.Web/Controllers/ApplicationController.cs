@@ -26,15 +26,15 @@ namespace JobPortal.Web.Controllers
             return View(model);
         }
 
-        public IActionResult ApplicationDetails(int id)
+        public IActionResult ApplicationDetails(string UserId, int JobId)
         {
-            var model = _applicationService.GetApplicationDetailsByApplicationId(id);
+            var model = _applicationService.GetApplicationDetailsByApplicationId(UserId,JobId);
             return View(model);
         }
 
-        public IActionResult DownloadCv(int id)
+        public IActionResult DownloadCv(string UserId, int JobId)
         {
-            var applicationFileVm = _applicationService.GetUserCvByApplicationId(id);
+            var applicationFileVm = _applicationService.GetUserCvByApplicationId(UserId, JobId);
             var fileBytes = applicationFileVm.CVFile;
             var fileName = $"{applicationFileVm.UserSurname}_{applicationFileVm.UserName}_CV.pdf";
 
@@ -42,9 +42,9 @@ namespace JobPortal.Web.Controllers
 
         }
 
-        public IActionResult OpenCv(int id)
+        public IActionResult OpenCv(string UserId, int JobId)
         {
-            var applicationFileVm = _applicationService.GetUserCvByApplicationId(id);
+            var applicationFileVm = _applicationService.GetUserCvByApplicationId(UserId, JobId);
             var fileBytes = applicationFileVm.CVFile;
             var fileName = $"{applicationFileVm.UserSurname}_{applicationFileVm.UserName}_CV.pdf";
 

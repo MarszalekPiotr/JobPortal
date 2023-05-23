@@ -10,11 +10,11 @@ namespace JobPortal.Application.Interfaces
     public  interface IApplicationService
     {
         ListOfApplicationsViewModel GetApplicationsByJobId(int jobId);
-        ApplicationDetailsViewModel GetApplicationDetailsByApplicationId(int ApplicationId);
+        ApplicationDetailsViewModel GetApplicationDetailsByApplicationId(string UserId, int JobId);
 
         int AddApplication(NewApplicationViewModel newApplication);
 
         List<JobPortal.Domain.Model.Application> GetAllApplications();
-        ApplicationFileViewModel GetUserCvByApplicationId(int id);
+        ApplicationFileViewModel GetUserCvByApplicationId(string UserId, int JobId);
     }
 }

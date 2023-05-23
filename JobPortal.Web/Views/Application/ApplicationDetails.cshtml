@@ -57,7 +57,7 @@
 </div>
 <div>
     @*zmiana metod*@
-    @Html.ActionLink("Pobierz Plik CV dla tej aplikacji", "DownloadCV", new { id = Model.Id }) |
-    @Html.ActionLink("Wyświetl Plik CV dla tej aplikacji", "OpenCV", new { id = Model.Id }) |
+    @Html.ActionLink("Pobierz Plik CV dla tej aplikacji", "DownloadCV", new { UserId = Model.UserDetails.Id, JobId = Model.JobId}) |
+    @Html.ActionLink("Wyświetl Plik CV dla tej aplikacji", "OpenCV", new { UserId = Model.UserDetails.Id, JobId = Model.JobId}) |
     <a asp-action="Index">Back to List</a>
 </div>
