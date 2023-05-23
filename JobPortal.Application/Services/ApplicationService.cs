@@ -73,14 +73,14 @@ namespace JobPortal.Application.Services
                      var  file_data = ToByteArray(stream);
                     var id = _applicationRepository.AddApplication(new JobPortal.Domain.Model.Application()
                     {
-                    //Id = newApplication.Id,
-                    UserId = newApplication.UserId,
-                    JobId = newApplication.JobId,
-                     
-                    CVFile = file_data
+                        //Id = newApplication.Id,
+                        UserId = newApplication.UserId,
+                        JobId = newApplication.JobId,
+                        CreatedAt = DateTime.Now,
+                        CVFile = file_data
 
 
-                  });
+                    }); ;
                   return id;
             
                     
