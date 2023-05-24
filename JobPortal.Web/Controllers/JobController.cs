@@ -22,8 +22,9 @@ namespace JobPortal.Web.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IApplicationService _applicationService;
         private readonly IApplicationRepository _applicationRepository;
+        private readonly IJobRepository _jobRepository;
 
-        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService, IApplicationService applicationService, IApplicationRepository applicationRepository)
+        public JobController(ILogger<JobController> logger, IJobService jobService, UserManager<User> userManager, ITagService tagService, ICategoryService categoryService, IApplicationService applicationService, IApplicationRepository applicationRepository, IJobRepository jobRepository)
         {
             _logger = logger;
             _jobService = jobService;
@@ -32,6 +33,7 @@ namespace JobPortal.Web.Controllers
             _categoryService = categoryService;
             _applicationService = applicationService;
             _applicationRepository = applicationRepository;
+            _jobRepository = jobRepository;
         }
 
         [HttpGet]
@@ -62,15 +64,17 @@ namespace JobPortal.Web.Controllers
         public IActionResult DetailsForUser(int id)
         {
             var CurrentUserId = _userManager.GetUserId(User);
-            if (User.IsInRole("Company"))
+            if (User.IsInRole("Company") && _jobRepository.GetJob(id).UserId == CurrentUserId)
             {
                 ViewData["IsCompany"] = true;
                 ViewData["AlreadyApplied"] = false;
-
+                ViewData["IsUser"] = false;
             }
-            else
+            else if(User.IsInRole("NormalUser"))
             {
+                ViewData["IsUser"] = true;
                 ViewData["IsCompany"] = false;
+             
                 if (_applicationRepository.Exist(CurrentUserId, id))
                 {
                     ViewData["AlreadyApplied"] = true;
@@ -81,6 +85,13 @@ namespace JobPortal.Web.Controllers
                     ViewData["AlreadyApplied"] = false;
                 }
             }
+            else
+            {
+                ViewData["IsUser"] = false;
+                ViewData["IsCompany"] = false;
+                ViewData["AlreadyApplied"] = false;
+            }
+            
             
 
             var model = _jobService.GetJobDetailsForUser(id);

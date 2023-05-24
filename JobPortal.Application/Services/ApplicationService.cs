@@ -131,7 +131,7 @@ namespace JobPortal.Application.Services
 
         public ListOfApplicationsViewModel GetApplicationsByJobId(int jobId)
         {
-            var applications = _applicationRepository.GetAllApplications().Where(app => app.JobId == jobId);
+            var applications = _applicationRepository.GetAllApplications().Where(app => app.JobId == jobId).ToList();
             var ListOfApplicationsVm = new ListOfApplicationsViewModel();
             List<ApplicationForListViewModel> applicationsForListViewModels = new List<ApplicationForListViewModel>();
             foreach (var application in applications)

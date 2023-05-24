@@ -20,6 +20,7 @@ namespace JobPortal.Infrastructure.Repositories
         public List<Application> GetAllApplications()
         {
             return _context.Applications.ToList();
+            Console.WriteLine("");
         }
         public int AddApplication(Application application)
         {

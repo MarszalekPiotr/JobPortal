@@ -74,12 +74,18 @@
         {
             @Html.ActionLink("Lista Aplikacji", "ApplicationAtJob", "Application", new { id = Model.Id });
         }
-        else
+        else if(ViewBag.IsUser)
         {
             if (!ViewBag.AlreadyApplied)
-            {
+            {   
+                
                 @Html.ActionLink("Aplikuj", "Apply", new {id = Model.Id});
+                
             }
+        }
+        else
+        {
+            
         }
 
         
@@ -90,12 +96,26 @@
         <div> Juz zaaplikowano </div>
     }
 
-   
 
-   @*Tutaj Dodac widocznosc tylko dla firmy a u gory dla usera*@
- 
+
+    @*Tutaj Dodac widocznosc tylko dla firmy a u gory dla usera*@
+
 </div>
-<div>
-    
-    <a asp-action="Index">Back to List</a>
-</div>
+@if (ViewBag.IsCompany)
+{   
+    <div>
+        <button class="btn-primary" asp-action="Index">
+            Wróć do listy twoich ofert
+            @* <a asp-action="Index">Back to List</a>*@
+        </button>
+    </div>
+}
+else
+{
+    <div>
+       
+            <a asp-action="Index" class="btn-primary">Wróć do listy ofert</a>
+   
+    </div>
+}
+

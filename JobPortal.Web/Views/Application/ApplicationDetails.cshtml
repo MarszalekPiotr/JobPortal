@@ -4,7 +4,7 @@
     ViewData["Title"] = "ApplicationDetails";
 }
 
-<h1>ApplicationDetails</h1>
+<h1>Szczegóły Aplikacji</h1>
 
 <div>
     <h4>Aplikant </h4>
@@ -59,5 +59,5 @@
     @*zmiana metod*@
     @Html.ActionLink("Pobierz Plik CV dla tej aplikacji", "DownloadCV", new { UserId = Model.UserDetails.Id, JobId = Model.JobId}) |
     @Html.ActionLink("Wyświetl Plik CV dla tej aplikacji", "OpenCV", new { UserId = Model.UserDetails.Id, JobId = Model.JobId}) |
-    <a asp-action="Index">Back to List</a>
+@*    <a asp-action="Index">Back to List</a>*@
 </div>

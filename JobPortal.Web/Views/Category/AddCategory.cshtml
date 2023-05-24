@@ -4,9 +4,9 @@
     ViewData["Title"] = "AddCategory";
 }
 
-<h1>AddCategory</h1>
-
-<h4>NewCategoryViewModel</h4>
+<h1>Dodawanie Kategorii</h1>
+@*
+<h4>NewCategoryViewModel</h4>*@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,7 +26,10 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <button class="btn-primary" asp-action="Index">
+        Wróć do listy kategorii
+ @*   <a asp-action="Index">Wróć do listy kategorii</a>*@
+    </button>
 </div>
 
 @section Scripts {

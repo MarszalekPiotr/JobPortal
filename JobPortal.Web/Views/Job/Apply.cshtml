@@ -5,9 +5,9 @@
     ViewData["Title"] = "Apply";
 }
 
-<h1>Apply</h1>
+<h1>Aplikuj</h1>
 
-<h4>NewApplicationViewModel</h4>
+@*<h4>NewApplicationViewModel</h4>*@
 <hr />
 
 @using (Html.BeginForm("Apply", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -30,9 +30,9 @@
     <input type="submit" value="Wyślij" />
 }
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

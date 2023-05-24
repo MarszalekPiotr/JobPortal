@@ -6,9 +6,15 @@
 
 <h1>CompanyPanel</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+    
+    <a asp-action="AddJob" class="btn-primary">
+  
+        Dodaj nową ofertę
+    
+    </a>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -69,7 +75,7 @@
                     @foreach(var tag in item.Tags)
                     {   
                         <div>
-                        @tag.Name
+                        #@tag.Name
                             
                         </div>
                     }

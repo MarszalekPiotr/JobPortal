@@ -60,7 +60,7 @@ namespace JobPortal.Infrastructure
 
 
             builder.Entity<Application>()
-                .HasKey(ap => new { ap.Id });
+                .HasKey(ap => new { ap.JobId, ap.UserId});
 
 
             builder.Entity<Application>()
