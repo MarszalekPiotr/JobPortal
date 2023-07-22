@@ -1,94 +1,58 @@
 ﻿@model JobPortal.Application.ViewModels.JobvM.ListOfJobsForListViewModel
 
 @{
-    ViewData["Title"] = "CompanyPanel";
+    ViewData["Title"] = "Panel Firmowy";
 }
 
-<h1>CompanyPanel</h1>
+<div class="container py-5">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
 
+    <div class="text-center mb-4">
+        <a asp-action="AddJob" class="btn btn-primary">
+            Dodaj nową ofertę
+        </a>
+    </div>
 
-    
-    <a asp-action="AddJob" class="btn-primary">
-  
-        Dodaj nową ofertę
-    
-    </a>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Nazwa Oferty
-            </th>
-            <th>
-                Lokalizacja
-            </th>
-            <th>
-                Nazwa Firmy
-            </th>
-            <th>
-                Kategoria
-            </th>
-            <th>
-                Minimalna pensja
-            </th>
-            <th>
-                Maksymalna pensja
-            </th>
-            <th>
-                Tagi
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Jobs) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LowestSalary)
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HighestSalary)
-
-                </td>
-                <td>
-                    @foreach(var tag in item.Tags)
-                    {   
-                        <div>
-                        #@tag.Name
-                            
-                        </div>
-                    }
-
-                </td>
-
-
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "DetailsForUser", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nazwa Oferty</th>
+                <th>Lokalizacja</th>
+                <th>Nazwa Firmy</th>
+                <th>Kategoria</th>
+                <th>Minimalna pensja</th>
+                <th>Maksymalna pensja</th>
+                <th>Tagi</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Jobs)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CompanyName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LowestSalary)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HighestSalary)</td>
+                    <td>
+                        @foreach (var tag in item.Tags)
+                        {
+                            <div class="badge bg-primary text-wrap">
+                                @tag.Name
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edytuj</a>
+                        <a asp-action="DetailsForUser" asp-route-id="@item.Id" class="btn btn-sm btn-info">Szczegóły</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

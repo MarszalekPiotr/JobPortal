@@ -3,11 +3,13 @@
 @{
 }
 
+<div class="d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="p-5 border rounded text-center" style="width: 90%; max-width: 1200px; background-color: #f8f9fa;">
+        <h2 class="mb-5">Wybierz typ konta</h2>
 
-<button>  
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/RegisterCompany">Utwórz Konto Firmy</a>
-</button>
-
-<button>
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/RegisterNormalUser">Utwórz Konto Zwykłego Użytkownika</a>
-</button>
+        <div class="d-grid gap-4">
+            <a asp-area="Identity" asp-page="/Account/RegisterCompany" class="btn btn-primary btn-lg">Utwórz Konto Firmy</a>
+            <a asp-area="Identity" asp-page="/Account/RegisterNormalUser" class="btn btn-secondary btn-lg">Utwórz Konto Zwykłego Użytkownika</a>
+        </div>
+    </div>
+</div>

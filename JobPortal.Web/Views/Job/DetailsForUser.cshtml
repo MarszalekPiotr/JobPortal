@@ -1,121 +1,79 @@
 ﻿@model JobPortal.Application.ViewModels.JobvM.JobDetailsViewModel
 @{
-   
-}
-@{
-    ViewData["Title"] = "DetailsForUser";
+    ViewData["Title"] = "Szczegóły Oferty";
 }
 
-<h1>DetailsForUser</h1>
+<style>
+    .label-font-size {
+        font-size: 1.2rem; /* Change this value to adjust the font size */
+    }
+</style>
 
-<div>
-    <h4>JobDetailsViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LowestSalary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LowestSalary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HighestSalary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HighestSalary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        
-    </dl>
-    <ul>
-        @foreach (var tag in Model.Tags)
-        {
-            <li> #@tag.Name </li>
-        }
-    </ul>
+<div class="container">
+    <h1 class="my-4">@ViewData["Title"]</h1>
 
-    @{
-        if (ViewBag.IsCompany)
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Html.DisplayFor(model => model.Name)</h4>
+            <p class="card-text">@Html.DisplayFor(model => model.Description)</p>
+            <hr />
+            <dl class="row">
+              @*  <dt class="col-sm-4 font-weight-bold label-font-size">Id:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Id)</dd>*@
+
+                <dt class="col-sm-4 font-weight-bold label-font-size">Lokalizaja</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Location)</dd>
+
+                <dt class="col-sm-4 font-weight-bold label-font-size">Widełki:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.LowestSalary) - @Html.DisplayFor(model => model.HighestSalary)</dd>
+
+
+                <dt class="col-sm-4 font-weight-bold label-font-size">Kategoria:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.CategoryName)</dd>
+
+                <dt class="col-sm-4 font-weight-bold label-font-size">Firma</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.CompanyName)</dd>
+
+                <dt class="col-sm-4 font-weight-bold label-font-size">Tagi:</dt>
+                <dd class="col-sm-8">
+                    <ul>
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <li>@tag.Name</li>
+                        }
+                    </ul>
+                </dd>
+            </dl>
+
+            <div class="mt-3">
+                @if (ViewBag.IsCompany)
+                {
+                    @Html.ActionLink("Lista Aplikacji", "ApplicationAtJob", "Application", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    ;
+                }
+                else if (ViewBag.IsUser)
+                {
+                    if (!ViewBag.AlreadyApplied)
+                    {
+                        @Html.ActionLink("Aplikuj", "Apply", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                    }
+                    else
+                    {
+                        <div class="alert alert-success" role="alert">Już Zaaplikowano</div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="my-4">
+        @if (ViewBag.IsCompany)
         {
-            @Html.ActionLink("Lista Aplikacji", "ApplicationAtJob", "Application", new { id = Model.Id });
-        }
-        else if(ViewBag.IsUser)
-        {
-            if (!ViewBag.AlreadyApplied)
-            {   
-                
-                @Html.ActionLink("Aplikuj", "Apply", new {id = Model.Id});
-                
-            }
+            <a asp-action="Index" class="btn btn-secondary">Wróć do listy twoich ofert</a>
         }
         else
         {
-            
+            <a asp-action="Index" class="btn btn-secondary">Wróć do listy ofert</a>
         }
-
-        
-    }
-
-    @if (ViewBag.AlreadyApplied)
-    {
-        <div> Juz zaaplikowano </div>
-    }
-
-
-
-    @*Tutaj Dodac widocznosc tylko dla firmy a u gory dla usera*@
-
+    </div>
 </div>
-@if (ViewBag.IsCompany)
-{   
-    <div>
-        <button class="btn-primary" asp-action="Index">
-            Wróć do listy twoich ofert
-            @* <a asp-action="Index">Back to List</a>*@
-        </button>
-    </div>
-}
-else
-{
-    <div>
-       
-            <a asp-action="Index" class="btn-primary">Wróć do listy ofert</a>
-   
-    </div>
-}
-

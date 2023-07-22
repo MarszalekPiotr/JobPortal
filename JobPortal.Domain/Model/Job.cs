@@ -16,22 +16,12 @@ namespace JobPortal.Domain.Model
         public string Location { get; set; }
         public decimal LowestSalary { get; set; }
         public decimal HighestSalary { get;  set; }
-
-        
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
-
         public string UserId { get; set; }
          public User User { get; set; }
-
         public virtual ICollection<Application> Applications { get; set; }
-
         public virtual ICollection<JobTag> JobTags { get; set; }
-
-
-
-
-
 
     }
 }

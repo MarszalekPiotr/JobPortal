@@ -1,37 +1,34 @@
 ﻿@model JobPortal.Application.ViewModels.CategoryVm.NewCategoryViewModel
 
 @{
-    ViewData["Title"] = "AddCategory";
+    ViewData["Title"] = "Dodaj Kategorię";
 }
 
-<h1>Dodawanie Kategorii</h1>
-@*
-<h4>NewCategoryViewModel</h4>*@
-<hr />
+<h1 class="mb-4">Dodaj Kategorię</h1>
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="AddCategory">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type = "hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="Id" class="form-control" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <button class="btn-primary" asp-action="Index">
-        Wróć do listy kategorii
- @*   <a asp-action="Index">Wróć do listy kategorii</a>*@
-    </button>
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Wróć do listy kategorii</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

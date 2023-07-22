@@ -239,7 +239,6 @@ namespace JobPortal.Application.Services
 
             return jobDetailsViewModel;
             
-
         }
 
         

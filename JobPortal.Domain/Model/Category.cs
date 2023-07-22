@@ -13,8 +13,5 @@ namespace JobPortal.Domain.Model
           
         public virtual ICollection<Job> Jobs { get; set; }
 
-
-          
-
     }
 }
