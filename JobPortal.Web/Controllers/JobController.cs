@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net;
 
 namespace JobPortal.Web.Controllers
 {
@@ -167,5 +168,33 @@ namespace JobPortal.Web.Controllers
 
             return RedirectToAction("CompanyPanel");
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Company")]
+        public IActionResult RemoveJobRequest(int id)
+        {
+            var JobToDelete = _jobService.GetJobDetailsForUser(id);
+            var JobToCheck = _jobRepository.GetJob(id);
+            //  Chek if User that want delete job is the owner
+            var urrentUser = this.User;
+            var currentUserId = _userManager.GetUserId(urrentUser);
+            if(JobToCheck.UserId == currentUserId)
+            {
+                return View(JobToDelete);
+            }
+
+            return RedirectToAction("Denied", "Home");
+
+
+        }
+
+        [HttpGet]
+        public IActionResult RemoveJob(int id)
+        {
+            var removedJobId = _jobService.DeleteJob(id);
+            return RedirectToAction("CompanyPanel");
+        }
+
+
     }
 }

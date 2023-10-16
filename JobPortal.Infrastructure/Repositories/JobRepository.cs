@@ -24,7 +24,13 @@ namespace JobPortal.Infrastructure.Repositories
             Job jobToRemove = _context.Jobs.FirstOrDefault(j => j.Id == jobId);
             if (jobToRemove != null) 
             {
+                var appliations = _context.Applications.Where(a => a.JobId == jobId);
+
+                _context.Applications.RemoveRange(appliations);
+                _context.SaveChanges();
                 _context.Jobs.Remove(jobToRemove);
+
+                
                 _context.SaveChanges();
             }
             else

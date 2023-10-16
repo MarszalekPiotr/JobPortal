@@ -1,0 +1,25 @@
+﻿@model JobPortal.Application.ViewModels.JobvM.JobDetailsViewModel
+     ViewData["Title"] = "RemoveJobRequest";
+}
+
+<h1>Czy na pewno chcesz usunąć poniższą ofertę? :OOO </h1>
+
+<div>Nazwa</div>
+@Model.Name
+
+
+<div>Kategoria</div>
+@Model.CategoryName
+
+<div>Lokalizacja</div>
+@Model.Location
+
+
+<div>Widełki</div>
+<div>@Model.LowestSalary  -   @Model.HighestSalary</div>
+
+<div>Nazwa Firmy</div>
+@Model.CompanyName
+
+
+<div>@Html.ActionLink("Usuń", "RemoveJob", "Job", new { id = Model.Id }, new { @class = "btn btn-primary" })</div>

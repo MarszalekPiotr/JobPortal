@@ -55,8 +55,10 @@ namespace JobPortal.Application.Services
         }
 
         public int DeleteJob(int JobId)
-        {
-            throw new NotImplementedException();
+        {   
+            _jobRepository.DeleteJob(JobId);
+
+            return JobId;
         }
 
         // zmienic parametry dla filtrowania i paginacji
