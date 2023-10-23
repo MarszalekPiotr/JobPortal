@@ -37,10 +37,15 @@ namespace JobPortal.Infrastructure.Repositories
 
         public void RemoveJobTag(int jobTagId)
         {
-            JobTag jobTag = _context.JobTags.FirstOrDefault(jt => jt.Id == jobTagId);
-            if (jobTag != null)
+            throw new NotImplementedException();
+        }
+
+        public void RemoveJobTagByJobId(int jobId)
+        {
+            List<JobTag> jobTags = _context.JobTags.Where(jt => jt.JobId == jobId).ToList();
+            if (jobTags != null)
             {
-                _context.Remove(jobTag);
+                _context.RemoveRange(jobTags);
                 _context.SaveChanges();
             }
                 

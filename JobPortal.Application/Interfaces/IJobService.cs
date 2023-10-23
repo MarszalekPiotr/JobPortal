@@ -1,5 +1,6 @@
 ﻿using JobPortal.Application.ViewModels.JobvM;
 using JobPortal.Application.ViewModels.JobVm;
+using JobPortal.Application.ViewModels.JobVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace JobPortal.Application.Interfaces
         ListOfJobsForListViewModel GetJobByCompanyId(string companyId);
         int AddJob(string CompanyId,NewJobViewModel job);
         JobDetailsViewModel GetJobDetailsForUser(int jobId);
-        int UpdateJob(int id, NewJobViewModel model );
+        int UpdateJob( UpdateJobViewModel model );
         int DeleteJob(int JobId);
 
 

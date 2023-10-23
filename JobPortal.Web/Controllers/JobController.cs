@@ -195,6 +195,48 @@ namespace JobPortal.Web.Controllers
             return RedirectToAction("CompanyPanel");
         }
 
+        [HttpGet]
+        public IActionResult UpdateJob(int id)
+        {   
+            
+
+            var tagsListViewModel = _tagService.GetAllTags();
+            var categoryListViewModel = _categoryService.GetCateogryList();
+            var jobToUpdate  =   _jobService.GetJobDetailsForUser(id);
+            ViewData["Categories"] = new SelectList(categoryListViewModel.Categories, "Id", "Name");
+            ViewData["Tags"] = new SelectList(tagsListViewModel.Tags, "Id", "Name");
+            ViewData["PreviousJob"] = jobToUpdate;
+            var jobToUpdateTags = jobToUpdate.Tags;
+            List<int> Ids = new List<int>();
+            jobToUpdateTags.ForEach(jtt => Ids.Add(jtt.Id));
+
+            ViewData["ID"] = jobToUpdate.Id;
+            ViewData["LOWEST"] = jobToUpdate.LowestSalary;
+            ViewData["HIGHEST"] = jobToUpdate.HighestSalary;
+
+            var jobToUpdateTagsIds = Ids;
+            return View(new UpdateJobViewModel()
+            {
+                Id = id,
+                Name = jobToUpdate.Name,
+                Description = jobToUpdate.Description,
+                Location = jobToUpdate.Location,
+                LowestSalary = jobToUpdate.LowestSalary,
+                HighestSalary = jobToUpdate.HighestSalary,
+                TagsIds = Ids
+
+            }
+                ) ;
+        
+        }
+
+        [HttpPost]
+        public IActionResult UpdateJob(UpdateJobViewModel updateJobViewModel)
+        {
+            _jobService.UpdateJob(updateJobViewModel);
+            return RedirectToAction("CompanyPanel");
+        }
+
 
     }
 }

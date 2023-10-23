@@ -1,6 +1,7 @@
 ﻿using JobPortal.Application.Interfaces;
 using JobPortal.Application.ViewModels.JobvM;
 using JobPortal.Application.ViewModels.JobVm;
+using JobPortal.Application.ViewModels.JobVM;
 using JobPortal.Domain.Interfaces;
 using JobPortal.Domain.Model;
 using System;
@@ -19,14 +20,15 @@ namespace JobPortal.Application.Services
         private readonly ICategoryRepository _categoryRepository;
         private readonly IJobTagRepository _jobTagRepository;
         private readonly ITagRepository _tagRepository;
-
-        public JobService(IJobRepository jobRepository, IUserRepository userRepository, ICategoryRepository categoryRepository, IJobTagRepository jobTagRepository, ITagRepository tagRepository)
+        private readonly IApplicationRepository _applicationRepository;
+        public JobService(IJobRepository jobRepository, IUserRepository userRepository, ICategoryRepository categoryRepository, IJobTagRepository jobTagRepository, ITagRepository tagRepository, IApplicationRepository applicationRepository)
         {
             _jobRepository = jobRepository;
             _userRepository = userRepository;
             _categoryRepository = categoryRepository;
             _jobTagRepository = jobTagRepository;
             _tagRepository = tagRepository;
+            _applicationRepository = applicationRepository;
         }
 
         public int AddJob(string CompanyId, NewJobViewModel jobFromForm)
@@ -245,9 +247,51 @@ namespace JobPortal.Application.Services
 
         
 
-        public int UpdateJob(int id, NewJobViewModel model)
+        public int UpdateJob(UpdateJobViewModel jobFromForm)
         {
-            throw new NotImplementedException();
+
+            
+
+            var previousJob = _jobRepository.GetJob(jobFromForm.Id);
+       
+
+            var JobToUpdate = new Job()
+            {
+                
+                Name = jobFromForm.Name,
+                Description = jobFromForm.Description,
+                Location = jobFromForm.Location,
+                LowestSalary = jobFromForm.LowestSalary,
+                HighestSalary = jobFromForm.HighestSalary,
+                UserId = previousJob.UserId,
+                CategoryId = jobFromForm.CategoryId
+
+
+            };
+
+            int newjobId = _jobRepository.UpdateJob(JobToUpdate);
+            jobFromForm.TagsIds.ForEach(t => _jobTagRepository.AddJobTag(new JobTag() { JobId = newjobId, TagId = t }));
+
+            /*restore applications*/
+            if (!jobFromForm.RemoveCurrentApplicationsAtJob)
+            {
+                var previousApps = _applicationRepository.GetAllApplicationsByJobId(jobFromForm.Id);
+
+                previousApps.ForEach(pa => _applicationRepository.AddApplication(new JobPortal.Domain.Model.Application()
+                {
+                    JobId = newjobId,
+                    UserId = pa.UserId,
+                    CVFile = pa.CVFile,
+                    CreatedAt = pa.CreatedAt,
+                }));
+
+            }
+
+
+            this.DeleteJob(jobFromForm.Id);
+
+
+            return JobToUpdate.Id;
         }
 
         

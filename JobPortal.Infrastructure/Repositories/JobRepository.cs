@@ -21,6 +21,15 @@ namespace JobPortal.Infrastructure.Repositories
         
         public void DeleteJob(int jobId)
         {
+            List<JobTag> jobTags = _context.JobTags.Where(jt => jt.JobId == jobId).ToList();
+            if (jobTags != null)
+            {
+                _context.RemoveRange(jobTags);
+                _context.SaveChanges();
+            }
+
+
+
             Job jobToRemove = _context.Jobs.FirstOrDefault(j => j.Id == jobId);
             if (jobToRemove != null) 
             {
@@ -53,16 +62,17 @@ namespace JobPortal.Infrastructure.Repositories
             }
         }
 
-        public void UpdateJob(Job job)
+        public int UpdateJob(Job job)
         {
             if (job == null)
             {
                 throw new ArgumentNullException();
             }
             else
-            {
+            {    
                 _context.Jobs.Update(job);
                 _context.SaveChanges();
+                return job.Id;
             }
         }
 

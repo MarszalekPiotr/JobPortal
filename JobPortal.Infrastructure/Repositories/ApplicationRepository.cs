@@ -66,5 +66,16 @@ namespace JobPortal.Infrastructure.Repositories
             }
             return false;
         }
+
+        public void RemoveApplicationsByJobId(int id)
+        {    
+            var applications = _context.Applications.Where(a => a.JobId == id);
+            _context.Applications.RemoveRange(applications);
+        }
+
+        public List<Application> GetAllApplicationsByJobId(int jobId)
+        {
+            return _context.Applications.Where(app => app.JobId == jobId)?.ToList();
+        }
     }
 }

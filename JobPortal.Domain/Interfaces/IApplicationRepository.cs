@@ -17,6 +17,10 @@ namespace JobPortal.Domain.Interfaces
         Application GetApplicationById(string UserId,int JobId);
         bool Exist(string UserId, int JobId);
 
+        void RemoveApplicationsByJobId(int id);
+
+        List<Application> GetAllApplicationsByJobId(int jobId);
+
 
 
     }
