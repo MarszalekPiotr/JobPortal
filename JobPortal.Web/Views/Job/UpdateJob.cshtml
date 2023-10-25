@@ -2,9 +2,7 @@
 @using Microsoft.Web.Helpers
 
 @{
-    var ID = ViewBag.ID;
-    var LOWEST = ViewBag.LOWEST;
-    var HIGEST = ViewBag.HIGEST;
+    var modelHelper = ViewBag.ModelHelper;
 
 }
 
@@ -17,7 +15,7 @@
         <form asp-action="UpdateJob">
            @* <input type="hidden" asp-for="Id" class="form-control" />*@
             <div style="display:none">
-            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @Value = @ID} });
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @Value = @modelHelper.JobId} });
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Name" class="form-control" id="Name" />
@@ -43,13 +41,13 @@
                 <span asp-validation-for="LowestSalary"  class="text-danger"></span>*@
                 <label typeof="decimal" asp-for="LowestSalary">Minimalna pensja </label>
                 <br/>
-                @Html.EditorFor(model => model.LowestSalary, new { htmlAttributes = new { @class = "form-control",@Type = "decimal",@Step ="0.01", @Value = @LOWEST } })
+                @Html.EditorFor(model => model.LowestSalary, new { htmlAttributes = new { @class = "form-control",@Type = "decimal",@Step ="0.01", @Value = @modelHelper.LowestSalary } })
             </div>
 
             <div class="form-floating mb-3">
                 <label typeof="decimal" asp-for="HighestSalary">Maksymalna pensja </label>
                 <br/>
-                @Html.EditorFor(model => model.HighestSalary,new { htmlAttributes = new { @class = "form-control",@Type = "decimal",@Step ="0.01", @Value = @HIGEST } })
+                @Html.EditorFor(model => model.HighestSalary,new { htmlAttributes = new { @class = "form-control",@Type = "decimal",@Step ="0.01", @Value = @modelHelper.HighestSalary} })
                 @*<input asp-for="HighestSalary" type="decimal" class="form-control" id="HighestSalary" />
                 <label asp-for="HighestSalary">Maksymalna pensja</label>
                 <span asp-validation-for="HighestSalary" class="text-danger"></span>*@

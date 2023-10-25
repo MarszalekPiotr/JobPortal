@@ -270,6 +270,8 @@ namespace JobPortal.Application.Services
             };
 
             int newjobId = _jobRepository.UpdateJob(JobToUpdate);
+
+            // restore jobTags
             jobFromForm.TagsIds.ForEach(t => _jobTagRepository.AddJobTag(new JobTag() { JobId = newjobId, TagId = t }));
 
             /*restore applications*/

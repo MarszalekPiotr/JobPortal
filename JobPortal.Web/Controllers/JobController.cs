@@ -202,19 +202,31 @@ namespace JobPortal.Web.Controllers
 
             var tagsListViewModel = _tagService.GetAllTags();
             var categoryListViewModel = _categoryService.GetCateogryList();
-            var jobToUpdate  =   _jobService.GetJobDetailsForUser(id);
             ViewData["Categories"] = new SelectList(categoryListViewModel.Categories, "Id", "Name");
             ViewData["Tags"] = new SelectList(tagsListViewModel.Tags, "Id", "Name");
-            ViewData["PreviousJob"] = jobToUpdate;
-            var jobToUpdateTags = jobToUpdate.Tags;
-            List<int> Ids = new List<int>();
-            jobToUpdateTags.ForEach(jtt => Ids.Add(jtt.Id));
 
+
+            var jobToUpdate  =   _jobService.GetJobDetailsForUser(id);
+           
+            var jobToUpdateTags = jobToUpdate.Tags;
+            List<int> tagsIds = jobToUpdateTags.Select(jt => jt.Id).ToList();
+            //jobToUpdateTags.ForEach(jtt => Ids.Add(jtt.Id));
+
+            ViewData["ModelHelper"] = new UpdateJobHelperViewModel()
+            {
+                JobId = jobToUpdate.Id,
+                PreviousJob = jobToUpdate,
+                LowestSalary = jobToUpdate.LowestSalary,
+                HighestSalary = jobToUpdate.HighestSalary
+            };
+
+            // delete
+            ViewData["PreviousJob"] = jobToUpdate;
             ViewData["ID"] = jobToUpdate.Id;
             ViewData["LOWEST"] = jobToUpdate.LowestSalary;
             ViewData["HIGHEST"] = jobToUpdate.HighestSalary;
 
-            var jobToUpdateTagsIds = Ids;
+           // var jobToUpdateTagsIds = Ids;
             return View(new UpdateJobViewModel()
             {
                 Id = id,
@@ -223,7 +235,7 @@ namespace JobPortal.Web.Controllers
                 Location = jobToUpdate.Location,
                 LowestSalary = jobToUpdate.LowestSalary,
                 HighestSalary = jobToUpdate.HighestSalary,
-                TagsIds = Ids
+                TagsIds = tagsIds
 
             }
                 ) ;
