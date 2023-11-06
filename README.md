@@ -1,6 +1,4 @@
-Oczywiście! Oto uporządkowany i sformatowany plik README w języku polskim:
 
----
 
 # JobPortal
 # Polish (English description of the app is available below)
@@ -73,12 +71,8 @@ Administrator ma możliwość dodawania Tagów i Kategorii.
 ![image](https://github.com/MarszalekPiotr/JobPortal/assets/97695701/2366f637-5fd4-49c5-af91-30fbed58f32b)
 ![image](https://github.com/MarszalekPiotr/JobPortal/assets/97695701/402786b3-c6fa-4832-881e-d3241bc1c3f2)
 
----
-#English Readme Version 
 
-Certainly! Here's your README file organized and formatted:
 
----
 #English
 
 ## User Handling
@@ -150,5 +144,5 @@ An Administrator can add Tags and Categories.
 ![image](https://github.com/MarszalekPiotr/JobPortal/assets/97695701/2366f637-5fd4-49c5-af91-30fbed58f32b)
 ![image](https://github.com/MarszalekPiotr/JobPortal/assets/97695701/402786b3-c6fa-4832-881e-d3241bc1c3f2)
 
----
+
 
