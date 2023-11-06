@@ -48,8 +48,8 @@ Użytkownik z tą rolą może:
 - Podglądać oferty pracy utworzone przez siebie
 - Dodawać oferty pracy (wypełniając odpowiednie pola, wybierając kategorię i tagi z dostępnej listy na portalu)
 - Usuwać oferty pracy
-- Edytować oferty pracy (pola wprowadzania automatycznie uzupełniane istniejącymi danymi, umożliwiając łatwą modyfikację konkretnych wartości)
-- Decydować, czy usunąć dotychczasową aplikację na ofertę pracy
+- Edytować oferty pracy (pola wprowadzania automatycznie uzupełniane istniejącymi danymi, umożliwiając łatwą modyfikację konkretnych wartości).
+  Pracodawca może zdecydować, czy usunąć dotychczasowe aplikacje na ofertę pracy
 
 Użytkownik z rolą "Firma" ma dostęp do listy kandydatów aplikujących na daną ofertę pracy:
 
